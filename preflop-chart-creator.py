@@ -1,5 +1,5 @@
 import turtle
-import tkinter
+from tkinter import *
 def square(width):
     turtle.forward(width)
     turtle.right(90)
@@ -165,9 +165,15 @@ def cleanall():
         for y in range(1,14):
             draw(width,x,y,"whitesmoke")
 
-
+# def dragging(x, y):
+#     turtle.ondrag(None)
+#     drawwhenuclick1(x, y)
+#     t.ondrag(dragging)
 
 def drawwhenuclick1(x,y):# (-200,200 is the original point)
+    turtle.ondrag(None)
+    print(x,y)
+    
     locationx=0
     locationy=0
     if x>-200 and x<-170:
@@ -224,6 +230,7 @@ def drawwhenuclick1(x,y):# (-200,200 is the original point)
         locationy = 1
     if locationx!=0 and locationy!=0:
         draw(width,locationx,locationy,"orange")
+    turtle.ondrag(drawwhenuclick1)
 
 
 def drawwhenuclick2(x,y):# (-200,200 is the original point)
@@ -287,7 +294,6 @@ def drawwhenuclick2(x,y):# (-200,200 is the original point)
     if locationx!=0 and locationy!=0:
         draw(width,locationx,locationy,"red")
     
-
 def drawwhenuclick3(x,y):# (-200,200 is the original point)
     locationx=0
     locationy=0
@@ -349,51 +355,74 @@ def drawwhenuclick3(x,y):# (-200,200 is the original point)
     if locationx!=0 and locationy!=0:
         draw(width,locationx,locationy,"whitesmoke")
 
-    
 
+if __name__ == "__main__":
+    # turtle.tracer(0)
+    # turtle.delay(0)
+    # turtle.ht()
+    # turtle.screensize(canvwidth=None, canvheight=None, bg='whitesmoke')
+    # turtle.setup(500,500)
+    # turtle.pensize(3)
+    # turtle.speed(0)
+    # # turtle.onscreenclick(drawwhenuclick1,btn=1,add=None)
+    # # turtle.ondrag(dragging)
+    # turtle.onscreenclick(drawwhenuclick1,btn=1,add=None)
+    # turtle.onscreenclick(drawwhenuclick2,btn=2,add=None)
+    # turtle.onscreenclick(drawwhenuclick3,btn=3,add=None)
 
-turtle.tracer(0)
-turtle.delay(0)
-turtle.ht()
-turtle.screensize(canvwidth=None, canvheight=None, bg='whitesmoke')
-turtle.setup(500,500)
-turtle.pensize(3)
-turtle.speed(0)
-turtle.onscreenclick(drawwhenuclick1,btn=1,add=None)
-turtle.onscreenclick(drawwhenuclick2,btn=2,add=None)
-turtle.onscreenclick(drawwhenuclick3,btn=3,add=None)
-#---- turtle setup ----
-width = 30 #表格宽度
-ox = -200
-oy = 200
-original = (ox,oy)#起始点
-reset()
-turtle.ht()
-#---- input setup ----
-cards = "A K Q J T 9 8 7 6 5 4 3 2"
-dic = {"A":13,"K":12,"Q":11,"J":10,"T":9,"9":8,"8":7,"7":6,"6":5,"5":4,"4":3,"3":2,"2":1}
-cardlist = cards.split()
-#---- main setup ----
-end = False
-letters(13)
-matrix(13)
+    #---- turtle setup ----
+    # width = 30 #表格宽度
+    # ox = -200
+    # oy = 200
+    # original = (ox,oy)#起始点
+    # reset()
+    # turtle.ht()
+    # #---- input setup ----
+    # cards = "A K Q J T 9 8 7 6 5 4 3 2"
+    # dic = {"A":13,"K":12,"Q":11,"J":10,"T":9,"9":8,"8":7,"7":6,"6":5,"5":4,"4":3,"3":2,"2":1}
+    # cardlist = cards.split()
+    # #---- main setup ----
+    # end = False
+    # letters(13)
+    # matrix(13)
 
-'''
+    # '''
 
-while end ==False:
+    # while end ==False:
 
-    color ="palegreen"
-    askforrange = input("欢迎使用QuanPoker起手表生成器！\n请按以下格式输入翻前范围：\n对子：AA 同花AKS或AKs 非同花AKO或AKo\n所有组合用逗号隔开\n默认黄色，输入1切换至绿色，输入3切换至蓝色\n输入X清屏\n")
-    askforrange.split(",")
-    if askforrange[-1] =="1":
-        color ="palegreen"
-    elif askforrange[-1] =="2":
-        color ="red"
-    elif askforrange[-1] =="3":
-        color ="orange"
-    elif askforrange[-1] =="X":
-        cleanall()
-    elif askforrange[-1] =="x":
-        break
-    drawsinglecombo(askforrange,color)'''
-turtle.mainloop()
+    #     color ="palegreen"
+    #     askforrange = input("欢迎使用QuanPoker起手表生成器！\n请按以下格式输入翻前范围：\n对子：AA 同花AKS或AKs 非同花AKO或AKo\n所有组合用逗号隔开\n默认黄色，输入1切换至绿色，输入3切换至蓝色\n输入X清屏\n")
+    #     askforrange.split(",")
+    #     if askforrange[-1] =="1":
+    #         color ="palegreen"
+    #     elif askforrange[-1] =="2":
+    #         color ="red"
+    #     elif askforrange[-1] =="3":
+    #         color ="orange"
+    #     elif askforrange[-1] =="X":
+    #         cleanall()
+    #     elif askforrange[-1] =="x":
+    #         break
+    #     drawsinglecombo(askforrange,color)'''
+    # turtle.mainloop()
+
+    # initialize tk
+    root = Tk()
+
+    # def key(evnt):
+    #     print("preessed", repr(event.char))
+
+    # drawing function
+    def callback(event):
+        frame.focus_set()
+        print("clicked at", event.x, event.y)
+
+    # define frame to plot
+    frame = Frame(root, width=100, height=100)
+    # frame.bind("<Key>", key)
+
+    # bind with btn 1 held down and motion
+    frame.bind("<B1-Motion>", callback)
+    frame.pack()
+
+    root.mainloop()
