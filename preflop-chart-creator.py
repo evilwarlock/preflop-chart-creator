@@ -414,7 +414,9 @@ if __name__ == "__main__":
 
     # drawing function
     def callback(event):
-        frame.focus_set()
+        # frame.focus_set()
+        # check current square color
+        # reverse it when moving
         print("clicked at", event.x, event.y)
 
     # define frame to plot
